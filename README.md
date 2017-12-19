@@ -3,8 +3,8 @@ MAVLink Connect UAV AutoTakeOff
 Pre-Install Software
 
 1.	System Update
-	sudo apt-get update
-	sudo apt-get upgrade
+	$ sudo apt-get update
+	$ sudo apt-get upgrade
 
 2.	Install Screen
 	sudo apt-get install screen
