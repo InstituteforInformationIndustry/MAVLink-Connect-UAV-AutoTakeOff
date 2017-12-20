@@ -35,7 +35,7 @@
 	$ cd build
 	$ cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D WITH_V4L=ON -D WITH_QT=ON -D WITH_OPENGL=ON ..
 	/* 
-		if cmake error嚗lease use this command
+		if cmake error，please use this command
 		cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
 	*/
 	$ make -j $(nproc)
@@ -95,7 +95,7 @@
 		__How to use __
 
 			1.Goto APM_MAVLink.c's Path to make
-			2.Open a terminal嚗nd go to APM_MAVLink.c's Path
+			2.Open a terminal，and go to APM_MAVLink.c's Path
 				$ sudo ./a.out
 			3.Open another terminal and waiting 5 second 
 				$ sudo screen /dev/ttyUSB0 57600
