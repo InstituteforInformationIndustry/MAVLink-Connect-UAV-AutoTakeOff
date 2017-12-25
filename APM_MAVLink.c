@@ -84,7 +84,7 @@
 	pthread_cond_t   trigger_FILE;
 
 // Declared MAVLINK value
-    unsigned char MAVLINK_MESSAGE_CRCS_ARRAY[256] = MAVLINK_MESSAGE_CRCS;
+    unsigned char MAVLINK_MESSAGE_CRCS_ARRAY[255] = MAVLINK_MESSAGE_CRCS;
     unsigned char MAV_sysid = 0;
     unsigned char MAV_compid = 0;
     unsigned char buf[MAVLINK_MAX_PACKET_LEN];
