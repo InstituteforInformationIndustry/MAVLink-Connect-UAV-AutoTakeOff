@@ -140,7 +140,7 @@
 	    tio.c_cc[VMIN] = 1;
 	    tcflush(serial,TCIOFLUSH);
 	    
-	    if (tcsetattr(serial,TCSANOW,&tio) == 0)
+	    if (tcsetattr(serial,TCSANOW,&tio) != 0)
 	    {
 	        return (1);
 	    }
@@ -179,7 +179,7 @@
 	    timeout.tv_sec = timeout_s;
 	    timeout.tv_nsec = 0;
 	    it.it_interval.tv_sec = inter_s;
-	    it.it_interval.tv_usec = 0;
+	    it.it_interval.tv_usec = 10;
 	    it.it_value = it.it_interval;
 	    /*setup sigalrm*/
 	    sigemptyset(&sa.sa_mask);
