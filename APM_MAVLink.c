@@ -103,6 +103,12 @@
     double roll = 0, pitch = 0, yaw = 0;
 	double lat = 0, lon = 0, alt = 0;
 
+	mavlink_mission_request_t       mission_request;        // #40
+	mavlink_mission_set_current_t	mission_set_current;	// #41
+	mavlink_mission_current_t       mission_current;        // #42
+	mavlink_mission_request_list_t	mission_request_list;	// #43
+	mavlink_mission_count_t         mission_count;          // #44
+	mavlink_mission_clear_all_t		mission_clear_all;		// #45
 	mavlink_message_t msg;
 	mavlink_heartbeat_t             sys_heartbeat;          // #00
 	mavlink_sys_status_t            sys_status;             // #01
@@ -115,12 +121,6 @@
 	mavlink_rc_channels_raw_t 		rc_channels_raw;		// #35
 	mavlink_servo_output_raw_t 		servo_output_raw; 		// #36
 	mavlink_mission_item_t          mission_item;           // #39
-	mavlink_mission_request_t       mission_request;        // #40
-	mavlink_mission_set_current_t	mission_set_current;	// #41
-	mavlink_mission_current_t       mission_current;        // #42
-	mavlink_mission_request_list_t	mission_request_list;	// #43
-	mavlink_mission_count_t         mission_count;          // #44
-	mavlink_mission_clear_all_t		mission_clear_all;		// #45
 	mavlink_mission_item_reached_t 	mission_item_reached;	// #46
 	mavlink_mission_ack_t           mission_ack;		    // #47
 	mavlink_nav_controller_output_t nav_controller_output;  // #62
