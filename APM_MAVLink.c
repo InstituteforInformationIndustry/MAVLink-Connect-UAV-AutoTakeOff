@@ -93,7 +93,7 @@
 	unsigned char battery_remaining = 0;
 	unsigned char fix_type = 0;
 
-    int MAVLINK_MESSAGE_LENGTHS_ARRAY[256] = MAVLINK_MESSAGE_LENGTHS;
+    int MAVLINK_MESSAGE_LENGTHS_ARRAY[128] = MAVLINK_MESSAGE_LENGTHS;
 	int HeartBeat = 0;
 	int time_boot_ms = 0; 
 
