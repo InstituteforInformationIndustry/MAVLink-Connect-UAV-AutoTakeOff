@@ -208,7 +208,7 @@
 	{
 		uint16_t send_len;
 		send_len = mavlink_msg_to_send_buffer(buf, &msg);
-		if( write(APM_Serial, buf, send_len) < 0 )
+		if( write(APM_Serial, buf, send_len) <= 0 )
 	    {
 	        printf(RED "data stream updata error.\n");
 	    }
