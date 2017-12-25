@@ -407,7 +407,7 @@
 		struct  pollfd fdAPM[1];
 		int readCount = 0;
 		int APMRec = 0, APMRec_tmp = 0;
-		unsigned char RecBuffer[270]={0,};
+		unsigned char RecBuffer[270]={0};
 		printf("Start serial read threads.\n");
 	    if( (printFile = fopen(PrintFileName,"w+b")) == NULL )
 	    {
