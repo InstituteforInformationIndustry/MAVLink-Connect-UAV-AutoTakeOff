@@ -84,7 +84,7 @@
 	pthread_cond_t   trigger_FILE;
 
 // Declared MAVLINK value
-    unsigned char MAVLINK_MESSAGE_CRCS_ARRAY[255] = MAVLINK_MESSAGE_CRCS;
+    unsigned char MAVLINK_MESSAGE_CRCS_ARRAY[256] = MAVLINK_MESSAGE_CRCS;
     unsigned char MAV_sysid = 0;
     unsigned char MAV_compid = 0;
     unsigned char buf[MAVLINK_MAX_PACKET_LEN];
@@ -93,7 +93,7 @@
 	unsigned char battery_remaining = 0;
 	unsigned char fix_type = 0;
 
-    int MAVLINK_MESSAGE_LENGTHS_ARRAY[128] = MAVLINK_MESSAGE_LENGTHS;
+    int MAVLINK_MESSAGE_LENGTHS_ARRAY[256] = MAVLINK_MESSAGE_LENGTHS;
 	int HeartBeat = 0;
 	int time_boot_ms = 0; 
 
@@ -140,7 +140,7 @@
 	    tio.c_cc[VMIN] = 1;
 	    tcflush(serial,TCIOFLUSH);
 	    
-	    if (tcsetattr(serial,TCSANOW,&tio) != 0)
+	    if (tcsetattr(serial,TCSANOW,&tio) == 0)
 	    {
 	        return (1);
 	    }
@@ -179,7 +179,7 @@
 	    timeout.tv_sec = timeout_s;
 	    timeout.tv_nsec = 0;
 	    it.it_interval.tv_sec = inter_s;
-	    it.it_interval.tv_usec = 10;
+	    it.it_interval.tv_usec = 0;
 	    it.it_value = it.it_interval;
 	    /*setup sigalrm*/
 	    sigemptyset(&sa.sa_mask);
@@ -208,7 +208,7 @@
 	{
 		uint16_t send_len;
 		send_len = mavlink_msg_to_send_buffer(buf, &msg);
-		if( write(APM_Serial, buf, send_len) <= 0 )
+		if( write(APM_Serial, buf, send_len) < 0 )
 	    {
 	        printf(RED "data stream updata error.\n");
 	    }
@@ -407,7 +407,7 @@
 		struct  pollfd fdAPM[1];
 		int readCount = 0;
 		int APMRec = 0, APMRec_tmp = 0;
-		unsigned char RecBuffer[270]={0};
+		unsigned char RecBuffer[270]={0,};
 		printf("Start serial read threads.\n");
 	    if( (printFile = fopen(PrintFileName,"w+b")) == NULL )
 	    {
