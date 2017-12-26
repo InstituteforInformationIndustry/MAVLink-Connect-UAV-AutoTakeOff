@@ -406,7 +406,7 @@
 	{
 		struct  pollfd fdAPM[1];
 		int readCount = 0;
-		int APMRec = 0, APMRec_tmp = 0;
+		int APMRec = 1, APMRec_tmp = 1;
 		unsigned char RecBuffer[270]={0,};
 		printf("Start serial read threads.\n");
 	    if( (printFile = fopen(PrintFileName,"w+b")) == NULL )
@@ -425,8 +425,8 @@
 	    	printf("read APM I/O and get data.\n");
 			printf("=============================================\n");
 	    }
-		fdAPM[0].fd = APM_Serial;
-		fdAPM[0].events = POLLIN;
+		fdAPM[1].fd = APM_Serial;
+		fdAPM[1].events = POLLIN;
 		while(ExitRun == 1)
 		{
 			int APMPoll = poll(fdAPM, 1, 1000);
