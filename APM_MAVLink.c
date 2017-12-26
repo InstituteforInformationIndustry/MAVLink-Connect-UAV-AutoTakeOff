@@ -61,7 +61,7 @@
 	#define printDataText "all"
 	#define PrintFileName "PrintText.txt"
 	#define RS_DEVICE_APM "/dev/ttyUSB0"
-	#define BAUDRATE_APM  57600*2
+	#define BAUDRATE_APM  57600
 	#define NET_HOST	  "27.105.106.52"
 	#define NET_PORT	  9876
 	#define false         0
@@ -135,8 +135,8 @@
 	    bzero(&tio,sizeof(tio));
 	    tio.c_cflag = baudrate|CS8|CLOCAL|CREAD;
 	    tio.c_iflag = IGNBRK|IGNPAR;
-	    tio.c_oflag = 1;
-	    tio.c_lflag = 1;
+	    tio.c_oflag = 0;
+	    tio.c_lflag = 0;
 	    tio.c_cc[VMIN] = 1;
 	    tcflush(serial,TCIOFLUSH);
 	    
@@ -144,7 +144,7 @@
 	    {
 	        return (1);
 	    }
-	    return (1);
+	    return (0);
 	}
 
 	void setupThread(int schedPriority, pthread_t *threads, void *function, void *value)
@@ -179,7 +179,7 @@
 	    timeout.tv_sec = timeout_s;
 	    timeout.tv_nsec = 0;
 	    it.it_interval.tv_sec = inter_s;
-	    it.it_interval.tv_usec = 10;
+	    it.it_interval.tv_usec = 0;
 	    it.it_value = it.it_interval;
 	    /*setup sigalrm*/
 	    sigemptyset(&sa.sa_mask);
@@ -194,9 +194,9 @@
 	{
 		uint16_t send_len;
 		msg.seq ++;
-		mavlink_msg_request_data_stream_pack(128, 0, &msg, MAV_sysid, MAV_compid, ID, hzrate, active);
+		mavlink_msg_request_data_stream_pack(127, 0, &msg, MAV_sysid, MAV_compid, ID, hzrate, active);
 		send_len = mavlink_msg_to_send_buffer(buf, &msg);
-		if( write(APM_Serial, buf, send_len) <= 0 )
+		if( write(APM_Serial, buf, send_len) < 0 )
 	    {
 	        printf(RED "request data stream updata error.\n");
 	    }
@@ -349,7 +349,7 @@
 	    static struct timespec tset;
 	    struct timespec t;
 	    double tnow;
-	    static int init = 1;
+	    static int init = 0;
 	    
 	    if(init == 0)
 	    {
@@ -396,7 +396,7 @@
 			}
 		}
 		fclose(file);
-		return (0);
+		return (i);
 	}
 
 // programme's main function
@@ -406,7 +406,7 @@
 	{
 		struct  pollfd fdAPM[1];
 		int readCount = 0;
-		int APMRec = 1, APMRec_tmp = 1;
+		int APMRec = 0, APMRec_tmp = 0;
 		unsigned char RecBuffer[270]={0,};
 		printf("Start serial read threads.\n");
 	    if( (printFile = fopen(PrintFileName,"w+b")) == NULL )
@@ -425,8 +425,8 @@
 	    	printf("read APM I/O and get data.\n");
 			printf("=============================================\n");
 	    }
-		fdAPM[1].fd = APM_Serial;
-		fdAPM[1].events = POLLIN;
+		fdAPM[0].fd = APM_Serial;
+		fdAPM[0].events = POLLIN;
 		while(ExitRun == 1)
 		{
 			int APMPoll = poll(fdAPM, 1, 1000);
@@ -440,7 +440,7 @@
 				if ( RecBuffer[0] == MAVLINK_STX )
 				{
 					//read header
-					while(APMRec <= 6)
+					while(APMRec < 6)
 					{
 						if((APMRec_tmp = read(APM_Serial, RecBuffer + APMRec, 6 - APMRec)) > 0)
 						{
