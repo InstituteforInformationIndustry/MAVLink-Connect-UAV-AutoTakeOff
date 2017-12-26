@@ -179,7 +179,7 @@
 	    timeout.tv_sec = timeout_s;
 	    timeout.tv_nsec = 0;
 	    it.it_interval.tv_sec = inter_s;
-	    it.it_interval.tv_usec = 0;
+	    it.it_interval.tv_usec = 10;
 	    it.it_value = it.it_interval;
 	    /*setup sigalrm*/
 	    sigemptyset(&sa.sa_mask);
@@ -194,9 +194,9 @@
 	{
 		uint16_t send_len;
 		msg.seq ++;
-		mavlink_msg_request_data_stream_pack(127, 0, &msg, MAV_sysid, MAV_compid, ID, hzrate, active);
+		mavlink_msg_request_data_stream_pack(128, 0, &msg, MAV_sysid, MAV_compid, ID, hzrate, active);
 		send_len = mavlink_msg_to_send_buffer(buf, &msg);
-		if( write(APM_Serial, buf, send_len) < 0 )
+		if( write(APM_Serial, buf, send_len) <= 0 )
 	    {
 	        printf(RED "request data stream updata error.\n");
 	    }
