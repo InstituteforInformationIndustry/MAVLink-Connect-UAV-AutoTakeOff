@@ -396,7 +396,7 @@
 			}
 		}
 		fclose(file);
-		return (i);
+		return (0);
 	}
 
 // programme's main function
