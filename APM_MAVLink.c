@@ -137,7 +137,7 @@
 	    tio.c_iflag = IGNBRK|IGNPAR;
 	    tio.c_oflag = 0;
 	    tio.c_lflag = 0;
-	    tio.c_cc[VMIN] = 0;
+	    tio.c_cc[VMIN] = 1;
 	    tcflush(serial,TCIOFLUSH);
 	    
 	    if (tcsetattr(serial,TCSANOW,&tio) == 0)
@@ -355,7 +355,7 @@
 	    {
 	        init = 1;
 	        clock_gettime(CLOCK_REALTIME,&tset);
-	        return 0;
+	        return 0.0;
 	    }
 	    clock_gettime(CLOCK_REALTIME, &t);
 	    tnow = (t.tv_sec-tset.tv_sec) + 1.0e-9*(double)(t.tv_nsec - tset.tv_nsec);
@@ -370,10 +370,10 @@
 
 	int openfile2read(mavlink_mission_item_t *mWP)
 	{
-		char buffer[255];
+		char buffer[256];
 		int status = false, i = 0;
 		FILE *file;
-		if((file = fopen("WP.txt", "r+")) != NULL)
+		if((file = fopen("WP.txt", "r+")) == NULL)
 		{
 			printf(RED "can't open file to read!\n");
 			return 0;
