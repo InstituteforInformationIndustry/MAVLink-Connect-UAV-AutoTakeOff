@@ -135,8 +135,8 @@
 	    bzero(&tio,sizeof(tio));
 	    tio.c_cflag = baudrate|CS8|CLOCAL|CREAD;
 	    tio.c_iflag = IGNBRK|IGNPAR;
-	    tio.c_oflag = 0;
-	    tio.c_lflag = 0;
+	    tio.c_oflag = 1;
+	    tio.c_lflag = 1;
 	    tio.c_cc[VMIN] = 1;
 	    tcflush(serial,TCIOFLUSH);
 	    
@@ -349,7 +349,7 @@
 	    static struct timespec tset;
 	    struct timespec t;
 	    double tnow;
-	    static int init = 0;
+	    static int init = 1;
 	    
 	    if(init == 0)
 	    {
@@ -440,7 +440,7 @@
 				if ( RecBuffer[0] == MAVLINK_STX )
 				{
 					//read header
-					while(APMRec < 6)
+					while(APMRec <= 6)
 					{
 						if((APMRec_tmp = read(APM_Serial, RecBuffer + APMRec, 6 - APMRec)) > 0)
 						{
