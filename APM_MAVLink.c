@@ -61,7 +61,7 @@
 	#define printDataText "all"
 	#define PrintFileName "PrintText.txt"
 	#define RS_DEVICE_APM "/dev/ttyUSB0"
-	#define BAUDRATE_APM  57600
+	#define BAUDRATE_APM  57600*2
 	#define NET_HOST	  "27.105.106.52"
 	#define NET_PORT	  9876
 	#define false         0
@@ -144,7 +144,7 @@
 	    {
 	        return (1);
 	    }
-	    return (0);
+	    return (1);
 	}
 
 	void setupThread(int schedPriority, pthread_t *threads, void *function, void *value)
