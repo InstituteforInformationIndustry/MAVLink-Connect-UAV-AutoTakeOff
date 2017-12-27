@@ -75,8 +75,8 @@
 // Declared programme value
     FILE *printFile;
     int APM_Serial;
-    int ExitRun = true;
-	int shootout = false;
+    int ExitRun = false;
+	int shootout = true;
     pthread_mutex_t  mutex_APM;
     pthread_mutex_t  mutex_UDP;
     pthread_mutex_t  mutex_FILE;
@@ -137,7 +137,7 @@
 	    tio.c_iflag = IGNBRK|IGNPAR;
 	    tio.c_oflag = 0;
 	    tio.c_lflag = 0;
-	    tio.c_cc[VMIN] = 1;
+	    tio.c_cc[VMIN] = 0;
 	    tcflush(serial,TCIOFLUSH);
 	    
 	    if (tcsetattr(serial,TCSANOW,&tio) == 0)
