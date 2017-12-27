@@ -463,7 +463,7 @@
 							}
 	            		}
 	            		// calc crc
-            			ushort crc = crc_calculate(&RecBuffer[1], (ushort)(lengthtoread - 3));
+            			ushort crc = crc_calculate(&RecBuffer[1], (ushort)(lengthtoread - 1));
 	            		// calc extra bit of crc for mavlink 1.0	
             			crc_accumulate(MAVLINK_MESSAGE_CRCS_ARRAY[(int)RecBuffer[5]], &crc);
             			// check crc
@@ -478,7 +478,7 @@
 									HeartBeat++;
 									if (HeartBeat == 10)
 				                    {
-				                        MAV_sysid = RecBuffer[3];
+				                        MAV_sysid = RecBuffer[4];
 				                        MAV_compid = RecBuffer[4];
 				                        MavlinkRequestData(MAV_DATA_STREAM_ALL, 1 , true);
 				                    }
