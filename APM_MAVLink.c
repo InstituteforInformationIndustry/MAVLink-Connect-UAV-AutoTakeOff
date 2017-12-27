@@ -193,7 +193,7 @@
     void MavlinkRequestData(MAV_DATA_STREAM ID, ushort hzrate, ushort active)
 	{
 		uint16_t send_len;
-		msg.seq ++;
+		
 		mavlink_msg_request_data_stream_pack(127, 0, &msg, MAV_sysid, MAV_compid, ID, hzrate, active);
 		send_len = mavlink_msg_to_send_buffer(buf, &msg);
 		if( write(APM_Serial, buf, send_len) < 0 )
@@ -353,7 +353,7 @@
 	    
 	    if(init == 0)
 	    {
-	        init = 1;
+	        init = 0;
 	        clock_gettime(CLOCK_REALTIME,&tset);
 	        return 0.0;
 	    }
