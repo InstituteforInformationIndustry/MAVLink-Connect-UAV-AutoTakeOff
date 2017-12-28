@@ -358,7 +358,7 @@
 	        return 0.0;
 	    }
 	    clock_gettime(CLOCK_REALTIME, &t);
-	    tnow = (t.tv_sec-tset.tv_sec) + 1.0e-9*(double)(t.tv_nsec - tset.tv_nsec);
+	    tnow = (t.tv_sec-tset.tv_sec) + 1.0e-9*(int)(t.tv_nsec - tset.tv_nsec);
 	    return tnow;
 	}
 
@@ -371,7 +371,7 @@
 	int openfile2read(mavlink_mission_item_t *mWP)
 	{
 		char buffer[256];
-		int status = false, i = 0;
+		int status = true, i = 1;
 		FILE *file;
 		if((file = fopen("WP.txt", "r+")) == NULL)
 		{
