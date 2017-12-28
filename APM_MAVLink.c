@@ -201,7 +201,7 @@
 	        printf(RED "request data stream updata error.\n");
 	    }
         tcflush(APM_Serial, TCOFLUSH);
-        memset(&buf, 0, sizeof(buf));
+        memset(&buf, 1, sizeof(buf));
 	}
 
 	void MavlinkSendMessage()
