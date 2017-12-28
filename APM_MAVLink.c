@@ -67,10 +67,10 @@
 	#define false         0
 	#define true          1
 	#define debug		  false
-	#define RDD			  true
+	#define RDD			  false
 	#define r2d 		  57.295779513082320876798154814105
 	#define d2r 		  0.01745329251994329576923690768489
-	#define ft2m 		  0.30479999953670400070420991892961345
+	#define ft2m 		  0.3047999995367040007042099189296
 
 // Declared programme value
     FILE *printFile;
@@ -103,12 +103,6 @@
     double roll = 0, pitch = 0, yaw = 0;
 	double lat = 0, lon = 0, alt = 0;
 
-	mavlink_mission_request_t       mission_request;        // #40
-	mavlink_mission_set_current_t	mission_set_current;	// #41
-	mavlink_mission_current_t       mission_current;        // #42
-	mavlink_mission_request_list_t	mission_request_list;	// #43
-	mavlink_mission_count_t         mission_count;          // #44
-	mavlink_mission_clear_all_t		mission_clear_all;		// #45
 	mavlink_message_t msg;
 	mavlink_heartbeat_t             sys_heartbeat;          // #00
 	mavlink_sys_status_t            sys_status;             // #01
@@ -121,6 +115,12 @@
 	mavlink_rc_channels_raw_t 		rc_channels_raw;		// #35
 	mavlink_servo_output_raw_t 		servo_output_raw; 		// #36
 	mavlink_mission_item_t          mission_item;           // #39
+	mavlink_mission_request_t       mission_request;        // #40
+	mavlink_mission_set_current_t	mission_set_current;	// #41
+	mavlink_mission_current_t       mission_current;        // #42
+	mavlink_mission_request_list_t	mission_request_list;	// #43
+	mavlink_mission_count_t         mission_count;          // #44
+	mavlink_mission_clear_all_t		mission_clear_all;		// #45
 	mavlink_mission_item_reached_t 	mission_item_reached;	// #46
 	mavlink_mission_ack_t           mission_ack;		    // #47
 	mavlink_nav_controller_output_t nav_controller_output;  // #62
@@ -135,8 +135,8 @@
 	    bzero(&tio,sizeof(tio));
 	    tio.c_cflag = baudrate|CS8|CLOCAL|CREAD;
 	    tio.c_iflag = IGNBRK|IGNPAR;
-	    tio.c_oflag = 1;
-	    tio.c_lflag = 1;
+	    tio.c_oflag = 0;
+	    tio.c_lflag = 0;
 	    tio.c_cc[VMIN] = 1;
 	    tcflush(serial,TCIOFLUSH);
 	    
@@ -183,7 +183,7 @@
 	    it.it_value = it.it_interval;
 	    /*setup sigalrm*/
 	    sigemptyset(&sa.sa_mask);
-	    sa.sa_flags = 1;
+	    sa.sa_flags = 0;
 	    sa.sa_handler = handle;
 	    sigaction(SIGALRM, &sa, NULL);
 	    setitimer(ITIMER_REAL, &it, NULL);
@@ -201,7 +201,7 @@
 	        printf(RED "request data stream updata error.\n");
 	    }
         tcflush(APM_Serial, TCOFLUSH);
-        memset(&buf, 1, sizeof(buf));
+        memset(&buf, 0, sizeof(buf));
 	}
 
 	void MavlinkSendMessage()
@@ -358,7 +358,7 @@
 	        return 0.0;
 	    }
 	    clock_gettime(CLOCK_REALTIME, &t);
-	    tnow = (t.tv_sec-tset.tv_sec) + 1.0e-9*(int)(t.tv_nsec - tset.tv_nsec);
+	    tnow = (t.tv_sec-tset.tv_sec) + 1.0e-9*(double)(t.tv_nsec - tset.tv_nsec);
 	    return tnow;
 	}
 
@@ -371,7 +371,7 @@
 	int openfile2read(mavlink_mission_item_t *mWP)
 	{
 		char buffer[256];
-		int status = true, i = 1;
+		int status = false, i = 0;
 		FILE *file;
 		if((file = fopen("WP.txt", "r+")) == NULL)
 		{
