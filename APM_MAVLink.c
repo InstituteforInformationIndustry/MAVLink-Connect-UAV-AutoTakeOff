@@ -67,10 +67,10 @@
 	#define false         0
 	#define true          1
 	#define debug		  false
-	#define RDD			  false
+	#define RDD			  true
 	#define r2d 		  57.295779513082320876798154814105
 	#define d2r 		  0.01745329251994329576923690768489
-	#define ft2m 		  0.3047999995367040007042099189296
+	#define ft2m 		  0.30479999953670400070420991892961345
 
 // Declared programme value
     FILE *printFile;
