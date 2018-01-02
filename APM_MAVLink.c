@@ -76,7 +76,7 @@
     FILE *printFile;
     int APM_Serial;
     int ExitRun = true;
-	int shootout = false;
+	int shootout = true;
     pthread_mutex_t  mutex_APM;
     pthread_mutex_t  mutex_UDP;
     pthread_mutex_t  mutex_FILE;
