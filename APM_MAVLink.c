@@ -63,7 +63,7 @@
 	#define RS_DEVICE_APM "/dev/ttyUSB0"
 	#define BAUDRATE_APM  57600
 	#define NET_HOST	  "27.105.106.52"
-	#define NET_PORT	  9876
+	#define NET_PORT	  987654
 	#define false         0
 	#define true          1
 	#define debug		  false
@@ -137,7 +137,7 @@
 	    tio.c_iflag = IGNBRK|IGNPAR;
 	    tio.c_oflag = 0;
 	    tio.c_lflag = 0;
-	    tio.c_cc[VMIN] = 1;
+	    tio.c_cc[VMIN] = 0;
 	    tcflush(serial,TCIOFLUSH);
 	    
 	    if (tcsetattr(serial,TCSANOW,&tio) == 0)
