@@ -1,1 +1,7 @@
 # MAVLink Connect UAV AutoTakeOff
+
+# Pre-Install Software
+
+## 1.__System Update__
+	$ sudo apt-get update
+	$ sudo apt-get upgrade
