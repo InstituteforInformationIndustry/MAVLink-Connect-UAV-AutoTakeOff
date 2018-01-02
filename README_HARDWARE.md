@@ -1,2 +1,0 @@
-# MAVLink Connect UAV AutoTakeOff
-
