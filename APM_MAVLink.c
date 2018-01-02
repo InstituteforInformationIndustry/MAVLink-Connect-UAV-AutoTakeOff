@@ -63,7 +63,7 @@
 	#define RS_DEVICE_APM "/dev/ttyUSB0"
 	#define BAUDRATE_APM  57600
 	#define NET_HOST	  "27.105.106.52"
-	#define NET_PORT	  987654
+	#define NET_PORT	  9876
 	#define false         0
 	#define true          1
 	#define debug		  false
@@ -76,7 +76,7 @@
     FILE *printFile;
     int APM_Serial;
     int ExitRun = true;
-	int shootout = true;
+	int shootout = false;
     pthread_mutex_t  mutex_APM;
     pthread_mutex_t  mutex_UDP;
     pthread_mutex_t  mutex_FILE;
@@ -84,14 +84,14 @@
 	pthread_cond_t   trigger_FILE;
 
 // Declared MAVLINK value
-    unsigned char MAVLINK_MESSAGE_CRCS_ARRAY[255] = MAVLINK_MESSAGE_CRCS;
+    unsigned char MAVLINK_MESSAGE_CRCS_ARRAY[256] = MAVLINK_MESSAGE_CRCS;
     unsigned char MAV_sysid = 0;
     unsigned char MAV_compid = 0;
     unsigned char buf[MAVLINK_MAX_PACKET_LEN];
 	unsigned char custom_mode = 0;
 	unsigned char system_status = 0;
 	unsigned char battery_remaining = 0;
-	unsigned char fix_type = 1;
+	unsigned char fix_type = 0;
 
     int MAVLINK_MESSAGE_LENGTHS_ARRAY[256] = MAVLINK_MESSAGE_LENGTHS;
 	int HeartBeat = 0;
@@ -137,7 +137,7 @@
 	    tio.c_iflag = IGNBRK|IGNPAR;
 	    tio.c_oflag = 0;
 	    tio.c_lflag = 0;
-	    tio.c_cc[VMIN] = 0;
+	    tio.c_cc[VMIN] = 1;
 	    tcflush(serial,TCIOFLUSH);
 	    
 	    if (tcsetattr(serial,TCSANOW,&tio) == 0)
@@ -177,9 +177,9 @@
 	    struct sigaction    sa;
 	    /*setup timer*/
 	    timeout.tv_sec = timeout_s;
-	    timeout.tv_nsec = 1;
+	    timeout.tv_nsec = 0;
 	    it.it_interval.tv_sec = inter_s;
-	    it.it_interval.tv_usec = 1;
+	    it.it_interval.tv_usec = 0;
 	    it.it_value = it.it_interval;
 	    /*setup sigalrm*/
 	    sigemptyset(&sa.sa_mask);
@@ -349,7 +349,7 @@
 	    static struct timespec tset;
 	    struct timespec t;
 	    double tnow;
-	    static int init = 1;
+	    static int init = 0;
 	    
 	    if(init == 0)
 	    {
