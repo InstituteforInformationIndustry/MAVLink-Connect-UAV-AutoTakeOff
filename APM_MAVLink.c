@@ -69,7 +69,7 @@
 	#define debug		  false
 	#define RDD			  false
 	#define r2d 		  57.295779513082320876798154814105
-	#define d2r 		  0.01745329251994329576923690768489
+	#define d2r 		  0.017453292519943295769236907684
 	#define ft2m 		  0.3047999995367040007042099189296
 
 // Declared programme value
