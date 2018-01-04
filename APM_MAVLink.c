@@ -90,7 +90,7 @@
     unsigned char buf[MAVLINK_MAX_PACKET_LEN];
 	unsigned char custom_mode = 0;
 	unsigned char system_status = 0;
-	unsigned char battery_remaining = 0;
+	unsigned char battery_remaining = 1;
 	unsigned char fix_type = 0;
 
     int MAVLINK_MESSAGE_LENGTHS_ARRAY[256] = MAVLINK_MESSAGE_LENGTHS;
