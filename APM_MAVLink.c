@@ -183,7 +183,7 @@
 	    it.it_value = it.it_interval;
 	    /*setup sigalrm*/
 	    sigemptyset(&sa.sa_mask);
-	    sa.sa_flags = 0;
+	    sa.sa_flags = 1;
 	    sa.sa_handler = handle;
 	    sigaction(SIGALRM, &sa, NULL);
 	    setitimer(ITIMER_REAL, &it, NULL);
