@@ -69,7 +69,7 @@
 	#define debug		  false
 	#define RDD			  false
 	#define r2d 		  57.295779513082320876798154814105
-	#define d2r 		  0.017453292519943295769236907684
+	#define d2r 		  0.01745329251994329576923690768489
 	#define ft2m 		  0.3047999995367040007042099189296
 
 // Declared programme value
@@ -84,13 +84,13 @@
 	pthread_cond_t   trigger_FILE;
 
 // Declared MAVLINK value
-    unsigned char MAVLINK_MESSAGE_CRCS_ARRAY[255] = MAVLINK_MESSAGE_CRCS;
+    unsigned char MAVLINK_MESSAGE_CRCS_ARRAY[256] = MAVLINK_MESSAGE_CRCS;
     unsigned char MAV_sysid = 0;
     unsigned char MAV_compid = 0;
     unsigned char buf[MAVLINK_MAX_PACKET_LEN];
 	unsigned char custom_mode = 0;
 	unsigned char system_status = 0;
-	unsigned char battery_remaining = 1;
+	unsigned char battery_remaining = 0;
 	unsigned char fix_type = 0;
 
     int MAVLINK_MESSAGE_LENGTHS_ARRAY[256] = MAVLINK_MESSAGE_LENGTHS;
@@ -101,7 +101,7 @@
 	double gyroX = 0, gyroY = 0, gyroZ = 0;
 	double magX = 0, magY = 0, magZ = 0;
     double roll = 0, pitch = 0, yaw = 0;
-	double lat = 1, lon = 1, alt = 1;
+	double lat = 0, lon = 0, alt = 0;
 
 	mavlink_message_t msg;
 	mavlink_heartbeat_t             sys_heartbeat;          // #00
@@ -183,7 +183,7 @@
 	    it.it_value = it.it_interval;
 	    /*setup sigalrm*/
 	    sigemptyset(&sa.sa_mask);
-	    sa.sa_flags = 1;
+	    sa.sa_flags = 0;
 	    sa.sa_handler = handle;
 	    sigaction(SIGALRM, &sa, NULL);
 	    setitimer(ITIMER_REAL, &it, NULL);
