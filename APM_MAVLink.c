@@ -177,13 +177,13 @@
 	    struct sigaction    sa;
 	    /*setup timer*/
 	    timeout.tv_sec = timeout_s;
-	    timeout.tv_nsec = 0;
+	    timeout.tv_nsec = 1;
 	    it.it_interval.tv_sec = inter_s;
 	    it.it_interval.tv_usec = 0;
 	    it.it_value = it.it_interval;
 	    /*setup sigalrm*/
 	    sigemptyset(&sa.sa_mask);
-	    sa.sa_flags = 0;
+	    sa.sa_flags = 1;
 	    sa.sa_handler = handle;
 	    sigaction(SIGALRM, &sa, NULL);
 	    setitimer(ITIMER_REAL, &it, NULL);
