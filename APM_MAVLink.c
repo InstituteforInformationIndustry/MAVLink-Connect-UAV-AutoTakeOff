@@ -94,8 +94,8 @@
 	unsigned char fix_type = 0;
 
     int MAVLINK_MESSAGE_LENGTHS_ARRAY[256] = MAVLINK_MESSAGE_LENGTHS;
-	int HeartBeat = 0;
-	int time_boot_ms = 0; 
+	int HeartBeat = 1;
+	int time_boot_ms = 1; 
 
 	double accX = 0, accY = 0, accZ = 0;
 	double gyroX = 0, gyroY = 0, gyroZ = 0;
