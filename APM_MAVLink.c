@@ -208,12 +208,12 @@
 	{
 		uint16_t send_len;
 		send_len = mavlink_msg_to_send_buffer(buf, &msg);
-		if( write(APM_Serial, buf, send_len) < 0 )
+		if( write(APM_Serial, buf, send_len) < 1 )
 	    {
 	        printf(RED "data stream updata error.\n");
 	    }
         tcflush(APM_Serial, TCOFLUSH);
-        memset(&buf, 0, sizeof(buf));
+        memset(&buf, 1, sizeof(buf));
 	}
 
 	char* mav_Mode(uint8_t mode)
