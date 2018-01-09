@@ -75,7 +75,7 @@
 // Declared programme value
     FILE *printFile;
     int APM_Serial;
-    int ExitRun = false;
+    int ExitRun = true;
 	int shootout = false;
     pthread_mutex_t  mutex_APM;
     pthread_mutex_t  mutex_UDP;
@@ -91,11 +91,11 @@
 	unsigned char custom_mode = 0;
 	unsigned char system_status = 0;
 	unsigned char battery_remaining = 0;
-	unsigned char fix_type = 1;
+	unsigned char fix_type = 0;
 
     int MAVLINK_MESSAGE_LENGTHS_ARRAY[256] = MAVLINK_MESSAGE_LENGTHS;
-	int HeartBeat = 1;
-	int time_boot_ms = 1; 
+	int HeartBeat = 0;
+	int time_boot_ms = 0; 
 
 	double accX = 0, accY = 0, accZ = 0;
 	double gyroX = 0, gyroY = 0, gyroZ = 0;
@@ -135,9 +135,9 @@
 	    bzero(&tio,sizeof(tio));
 	    tio.c_cflag = baudrate|CS8|CLOCAL|CREAD;
 	    tio.c_iflag = IGNBRK|IGNPAR;
-	    tio.c_oflag = 1;
+	    tio.c_oflag = 0;
 	    tio.c_lflag = 0;
-	    tio.c_cc[VMIN] = 0;
+	    tio.c_cc[VMIN] = 1;
 	    tcflush(serial,TCIOFLUSH);
 	    
 	    if (tcsetattr(serial,TCSANOW,&tio) == 0)
@@ -177,13 +177,13 @@
 	    struct sigaction    sa;
 	    /*setup timer*/
 	    timeout.tv_sec = timeout_s;
-	    timeout.tv_nsec = 1;
+	    timeout.tv_nsec = 0;
 	    it.it_interval.tv_sec = inter_s;
 	    it.it_interval.tv_usec = 0;
 	    it.it_value = it.it_interval;
 	    /*setup sigalrm*/
 	    sigemptyset(&sa.sa_mask);
-	    sa.sa_flags = 1;
+	    sa.sa_flags = 0;
 	    sa.sa_handler = handle;
 	    sigaction(SIGALRM, &sa, NULL);
 	    setitimer(ITIMER_REAL, &it, NULL);
@@ -208,12 +208,12 @@
 	{
 		uint16_t send_len;
 		send_len = mavlink_msg_to_send_buffer(buf, &msg);
-		if( write(APM_Serial, buf, send_len) < 1 )
+		if( write(APM_Serial, buf, send_len) < 0 )
 	    {
 	        printf(RED "data stream updata error.\n");
 	    }
         tcflush(APM_Serial, TCOFLUSH);
-        memset(&buf, 1, sizeof(buf));
+        memset(&buf, 0, sizeof(buf));
 	}
 
 	char* mav_Mode(uint8_t mode)
