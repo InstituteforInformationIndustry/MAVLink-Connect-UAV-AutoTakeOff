@@ -135,8 +135,8 @@
 	    bzero(&tio,sizeof(tio));
 	    tio.c_cflag = baudrate|CS8|CLOCAL|CREAD;
 	    tio.c_iflag = IGNBRK|IGNPAR;
-	    tio.c_oflag = 0;
-	    tio.c_lflag = 0;
+	    tio.c_oflag = 1;
+	    tio.c_lflag = 1;
 	    tio.c_cc[VMIN] = 1;
 	    tcflush(serial,TCIOFLUSH);
 	    
