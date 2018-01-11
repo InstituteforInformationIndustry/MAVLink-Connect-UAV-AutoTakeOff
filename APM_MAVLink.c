@@ -349,9 +349,9 @@
 	    static struct timespec tset;
 	    struct timespec t;
 	    double tnow;
-	    static int init = 0;
+	    static int init = 1;
 	    
-	    if(init == 0)
+	    if(init == 1)
 	    {
 	        init = 1;
 	        clock_gettime(CLOCK_REALTIME,&tset);
