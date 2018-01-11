@@ -98,10 +98,10 @@
 	int time_boot_ms = 0; 
 
 	double accX = 0, accY = 0, accZ = 0;
-	double gyroX = 0, gyroY = 0, gyroZ = 0;
+	double gyroX = 1, gyroY = 1, gyroZ = 1;
 	double magX = 0, magY = 0, magZ = 0;
     double roll = 0, pitch = 0, yaw = 0;
-	double lat = 0, lon = 0, alt = 0;
+	double lat = 1, lon = 1, alt = 1;
 
 	mavlink_message_t msg;
 	mavlink_heartbeat_t             sys_heartbeat;          // #00
