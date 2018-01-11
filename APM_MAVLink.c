@@ -98,10 +98,10 @@
 	int time_boot_ms = 0; 
 
 	double accX = 0, accY = 0, accZ = 0;
-	double gyroX = 1, gyroY = 1, gyroZ = 1;
+	double gyroX = 0, gyroY = 0, gyroZ = 0;
 	double magX = 0, magY = 0, magZ = 0;
     double roll = 0, pitch = 0, yaw = 0;
-	double lat = 1, lon = 1, alt = 1;
+	double lat = 0, lon = 0, alt = 0;
 
 	mavlink_message_t msg;
 	mavlink_heartbeat_t             sys_heartbeat;          // #00
@@ -135,8 +135,8 @@
 	    bzero(&tio,sizeof(tio));
 	    tio.c_cflag = baudrate|CS8|CLOCAL|CREAD;
 	    tio.c_iflag = IGNBRK|IGNPAR;
-	    tio.c_oflag = 1;
-	    tio.c_lflag = 1;
+	    tio.c_oflag = 0;
+	    tio.c_lflag = 0;
 	    tio.c_cc[VMIN] = 1;
 	    tcflush(serial,TCIOFLUSH);
 	    
@@ -177,9 +177,9 @@
 	    struct sigaction    sa;
 	    /*setup timer*/
 	    timeout.tv_sec = timeout_s;
-	    timeout.tv_nsec = 1;
+	    timeout.tv_nsec = 0;
 	    it.it_interval.tv_sec = inter_s;
-	    it.it_interval.tv_usec = 1;
+	    it.it_interval.tv_usec = 0;
 	    it.it_value = it.it_interval;
 	    /*setup sigalrm*/
 	    sigemptyset(&sa.sa_mask);
@@ -208,7 +208,7 @@
 	{
 		uint16_t send_len;
 		send_len = mavlink_msg_to_send_buffer(buf, &msg);
-		if( write(APM_Serial, buf, send_len) < 1 )
+		if( write(APM_Serial, buf, send_len) < 0 )
 	    {
 	        printf(RED "data stream updata error.\n");
 	    }
@@ -349,9 +349,9 @@
 	    static struct timespec tset;
 	    struct timespec t;
 	    double tnow;
-	    static int init = 1;
+	    static int init = 0;
 	    
-	    if(init == 1)
+	    if(init == 0)
 	    {
 	        init = 1;
 	        clock_gettime(CLOCK_REALTIME,&tset);
